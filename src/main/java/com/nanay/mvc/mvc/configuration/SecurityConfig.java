@@ -6,34 +6,37 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends  SecurityWebApplicationInitializer{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Autowired
     public void setDataSource(DataSource dataSource){
+
         this.dataSource = dataSource;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.jdbcAuthentication().dataSource((dataSource));
+        auth.jdbcAuthentication().dataSource(dataSource);
     }
 
     @Override
     protected void configure (HttpSecurity http) throws Exception{
-        http.authorizeHttpRequests()
-                .anyRequest().permitAll();
-          //      .antMatchers("/products/edit").hasAnyRole("ADMIN");
-               // .antMatchers("/products/edit/**").hasAnyRole("MANAGER", "ADMIN")
-                //.and()
-                //.formLogin()
-                //.permitAll();
+        http.authorizeRequests()
+                .antMatchers("/products/edit/**").hasAnyRole("ADMIN")
+                // .antMatchers("/products/edit/**").hasAnyRole("MANAGER", "ADMIN")
+                .anyRequest().permitAll()
+                .and()
+                .formLogin()
+                .permitAll();
 
     }
+
 }
