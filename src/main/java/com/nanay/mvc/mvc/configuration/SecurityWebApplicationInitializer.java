@@ -8,7 +8,4 @@ import org.springframework.stereotype.Component;
 
 @Component
 public abstract class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
-  //  protected abstract void configure(AuthenticationManagerBuilder auth) throws Exception;
-
-    //protected abstract void configure (HttpSecurity http) throws Exception;
-}
+ }

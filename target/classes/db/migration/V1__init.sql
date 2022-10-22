@@ -1,7 +1,10 @@
 CREATE TABLE products (id serial, title varchar(100), price int);
 
+CREATE TABLE items (id serial, title varchar(100), price int);
+
 INSERT INTO products (title, price) VALUES ('Bread', 40), ('Milk', 80);
 
+INSERT INTO items (title, price) values ('Box', 50), ('Tree', 10), ('House', 60), ('Bread', 40), ('Milk', 80);;
 CREATE TABLE users (
                        username VARCHAR(60) NOT NULL,
                        password VARCHAR(60) NOT NULL,
